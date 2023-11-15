@@ -1,5 +1,4 @@
 const inquirer = require('inquirer');
-const fs = require('fs');
 const mysql = require('mysql2');
 
 
@@ -100,9 +99,5 @@ inquirer
 
         }
 
-        //   });
-
-        UI.log.write(pinkSlip, (error) =>
-            error ? console.error(error) : console.log('sucess')
-        );
+     
     });
