@@ -1,22 +1,19 @@
 -- Active: 1699996873746@@127.0.0.1@3306@employee_db
 INSERT INTO departments (department_name)
-VALUES ("John"),
-       ("Jane"),
-       ("John"),
-       ("Sam"),
-       ("Sue"),
-       ("Teri"),
-       ("Jeff")
+VALUES ("sales"),
+       ("apparel"),
+       ("outdoors"),
+       ("customer_service"),
+       ("receiving")
+       
 
 INSERT INTO roles (title, department_id, salary)
-VALUES ("John", 1, 30),
-       ("Jane", 1, 20),
-       ("John", 2, 30),
-       ("Sam", 2, 50),
-       ("Sue", 3, 10),
-       ("Teri", 3, 20),
-       ("Jeff", 3, 15)
-
+VALUES ("cashier", 1, 30000),
+       ("sales_rep", 2, 40000),
+       ("sales_rep", 3, 30000),
+       ("rep", 4, 50000),
+       ("associate", 3, 40000)
+       
 
 INSERT INTO employees (first_name, last_name,role_id,manager_id)
 VALUES ("John", "Smith", 1, Null),

@@ -14,90 +14,265 @@ const db = mysql.createConnection(
     console.log(`Connected to the employee_db database.`)
 );
 
+function allEmployees() {
+
+    db.query('SELECT * FROM employees', function (err, results) {
+        console.table(results);
+        begin()
+    });
+
+};
+
+function addEmployee() {
+
+    inquirer
+        .prompt([
+            {
+                type: 'text',
+                name: 'firstName',
+                message: "What is the Employee's first name?",
+
+            },
+            {
+                type: 'text',
+                name: 'lastName',
+                message: "What is the Employee's last name?",
+
+            },
+            {
+                type: 'text',
+                name: 'roleId',
+                message: "What is the Employee's role ID?",
+
+            },
+            {
+                type: 'text',
+                name: 'managerId',
+                message: "What is the Employee's manager ID?",
+
+            },
+        ])
+
+        .then((date) => {
+
+            db.query('INSERT INTO employees', function (err, results) {
 
 
-inquirer
+
+
+                console.table(results);
+                begin()
+            });
+
+        })
+};
+
+function updateEmployee() {
+    inquirer
     .prompt([
-
         {
-            type: 'list',
-            name: 'action',
-            message: 'What would you like to do?',
-            choices: ['View All Employees', 'Add Employee', 'Update Employee Role', 'View All Roles', 'Add Role', 'View All Departments', 'Add Department', 'Quit']
-        },
+            type: 'text',
+            name: 'firstName',
+            message: "What is the Employee's first name?",
 
+        },
+        {
+            type: 'text',
+            name: 'lastName',
+            message: "What is the Employee's last name?",
+
+        },
+        {
+            type: 'text',
+            name: 'roleId',
+            message: "What is the Employee's NEW role ID?",
+
+        },
+        
     ])
 
-    .then((data) => {
-        console.log(data);
-        let action = data.action
-        let pinkSlip
+    .then((date) => {
 
-        if (action === 'View All Employees') {
-            db.query('SELECT * FROM employees', function (err, results) {
-                console.table(results);
-            });
-            pinkSlip = 1
-            console.log(pinkSlip);
-            return pinkSlip
+        db.query('find one and update employees', function (err, results) {
 
-        } else if (action === 'Add Employee') {
 
-            pinkSlip = 2
-            console.log(pinkSlip);
-            return pinkSlip
 
-        } else if (action === 'Update Employee Role') {
 
-            pinkSlip = 3
-            console.log(pinkSlip);
-            return pinkSlip
+            console.table(results);
+            begin()
+        });
 
-        } else if (action === 'View All Roles') {
-            pinkSlip = 4
+    })
+}
 
-            db.query('SELECT * FROM Roles', function (err, results) {
-                console.table(results);
-            });
-            console.log(pinkSlip);
+function allRoles() {
 
-            return pinkSlip
-
-        } else if (action === 'Add Role') {
-
-            pinkSlip = 5
-            console.log(pinkSlip);
-            return pinkSlip
-
-        } else if (action === 'View All Departments') {
-
-            db.query('SELECT * FROM Departments', function (err, results) {
-                console.table(results);
-            });
-
-            pinkSlip = 6
-            console.log(pinkSlip);
-            return pinkSlip
-
-        } else if (action === 'Add Department') {
-
-            pinkSlip = 7
-            console.log(pinkSlip);
-            return pinkSlip
-
-        } else if (action === 'Quit') {
-
-            pinkSlip = 8
-            console.log(pinkSlip);
-            return pinkSlip
-
-        } else {
-
-            pinkSlip = -1
-            console.log(pinkSlip);
-            return 
-
-        }
-
-     
+    db.query('SELECT * FROM roles', function (err, results) {
+        console.table(results);
+        begin()
     });
+
+};
+
+
+
+function addRole() {
+
+    inquirer
+        .prompt([
+            {
+                type: 'text',
+                name: 'title',
+                message: "What is the Title of this Role?",
+
+            },
+            {
+                type: 'text',
+                name: 'departmentId',
+                message: "What is the Department ID for this Role?",
+
+            },
+            {
+                type: 'text',
+                name: 'salary',
+                message: "What is the Salary for this Role?",
+
+            },
+            {
+                type: 'text',
+                name: 'managerId',
+                message: "What is the Employee's manager ID?",
+
+            },
+        ])
+
+        .then((date) => {
+
+            db.query('INSERT INTO roles', function (err, results) {
+
+
+
+
+                console.table(results);
+                begin()
+            });
+
+        })
+};
+
+function alldepartments() {
+
+    db.query('SELECT * FROM departments', function (err, results) {
+        console.table(results);
+        begin()
+    });
+
+};
+
+function addDepartment() {
+
+    inquirer
+        .prompt([
+            {
+                type: 'text',
+                name: 'name',
+                message: "What is the Name of this Department?",
+
+            },
+        ])
+
+        .then((date) => {
+
+            db.query('INSERT INTO departments', function (err, results) {
+
+
+
+
+                console.table(results);
+                begin()
+            });
+
+        })
+};
+
+
+function begin() {
+    inquirer
+        .prompt([
+
+            {
+                type: 'list',
+                name: 'action',
+                message: 'What would you like to do?',
+                choices: ['View All Employees', 'Add Employee', 'Update Employee Role', 'View All Roles', 'Add Role', 'View All Departments', 'Add Department', 'Quit']
+
+            },
+        ])
+
+
+        .then((data) => {
+            console.log(data);
+            let action = data.action
+            let pinkSlip
+
+            if (action === 'View All Employees') {
+
+                allEmployees()
+
+                return
+
+            } else if (action === 'Add Employee') {
+
+                addEmployee()
+
+                return
+
+            } else if (action === 'Update Employee Role') {
+
+                updateEmployee()
+
+                return 
+
+            } else if (action === 'View All Roles') {
+
+                allRoles()
+
+                return 
+
+            } else if (action === 'Add Role') {
+
+                addRole()
+
+                return 
+
+            } else if (action === 'View All Departments') {
+
+                alldepartments()
+
+                return 
+
+            } else if (action === 'Add Department') {
+
+                addDepartment()
+
+                return 
+
+            } else if (action === 'Quit') {
+
+                
+                console.log('Have a Great Day!');
+                return 
+
+            } else {
+
+                
+                console.log("Well, this is awkward... I'm not sure how you got here..");
+                return
+
+            }
+
+
+        });
+}
+
+begin()
